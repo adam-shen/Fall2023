@@ -1,0 +1,104 @@
+CSC236 Data Structures in Java
+Track Race
+In this lab you will write a program to find the gold, silver and bronze medal winners in a 10K Long-Distance race event at the Summer Olympics.
+
+There are many instances in sports where racers do not all start a race at the same time. This happens in early rounds of track races, when there are too many runners to fit on the track, or in swimming when there are not enough lanes in the pool. This happens sometimes at rowing races when the river is too narrow to hold all the boats. To find the race time for a runner it is necessary to subtract the starting time from the ending time. Then the runner with the fastest time is the gold medal winner. The runner with the second fastest time is the silver medal winner and the runner with the third fastest time is the bronze medal winner.
+
+We will use an arraylist to hold the runners. ArrayList is a built in Java class. An ArrayList object contains a list of objects; see the ArrayList handout for a brief introduction to ArrayLists. The program will read the data for each runner from an input file to create a runner object. We will then add that runner object to the arraylist. The program will print all the runners, and then print out the gold, silver and bronze medal winners.
+
+Input
+The input data will be in a file named "runners.dat". The file will have the following format:
+
+    name
+    country
+    start time
+    end time
+where the start and end times are represented as hour (int), minutes (int), and seconds (double). For example, here is the input for one Runner:
+
+Allyson Felix
+United States
+9 25 31.2
+10 2 14.45
+In addition, we will need to provide exception handling. Do not assume that every line in the input file contains the expected data types. There may be input mismatch exceptions. If an input value causes an input mismatch exception, then catch and handle the exception. Handle the exception by skipping that runner and printing an error message. Then continue reading and processing the next runner. A runner with an error in the start time could look like:
+
+He Wuga
+China
+9 4s 44
+10 32 10.88
+A runner with an error in the end time could look like:
+
+Emma Coburn
+United States
+11 12 0
+ab 50 10.88
+Since the name and country are Strings, reading them cannot result in an InputMismatchException. The exception can only occur when reading the hours, minutes, or seconds. If an exception occurs you need to read the rest of that input line. If an exception occurs on the start time you will also need to read the next input line, which has the end time. Then the next time you read it will be the name of the next runner.
+
+The incorrect input should not crash your program, and it should not end your reading of the input.
+
+You are responsible for creating your own input file. Your file should contain at least 15 runners. DO NOT CHANGE THE FORMAT OF THE INPUT FILE.
+
+Output
+You will create two output files.
+
+The output file results.dat will contain a list of all the runners (print a title first). Then it will contain the gold, silver, and bronze medal winners. Print a title for each medal winner.
+
+The output file errors.dat will contain a report on any InputMismatchExceptions which occurred. You do not have to identify the exact field which had the error. You need only identify the line number of the input file where the error occurred, and the name of the runner that was being processed. For each exception, print a message such as:
+
+line xx: mismatch error for <name of runner>, skipping to next runner
+For example, a message might look like:
+
+line 11: mismatch error for He Wuga, skipping to next runner
+Your code needs to keep track of which line you are reading so it can print the line number in the message.
+
+Print the total number of errors at the end of the error file.
+
+Testing Your Program
+To test your program thoroughly you need to think carefully about your input. Here are some tips:
+
+You will need to check whether your code is calculating the race time correctly. Use start and end times where it will be easy for you to calculate the race time. But remember that you want to check for all possibilites, such as (start time minutes one) < (end time minutes two) and (start time seconds one) > (end time seconds two), in which case (if the hours are equal) time one < time two.
+You can assume that the start time is before the end time.
+You can assume that no input will be missing. For example, you do not have to worry about a time that only has two numbers, or a missing name or country.
+Make sure all valid runners are printed correctly.
+Make sure your medal winners are calculated correctly.
+Start with all valid input, and make sure that your code works correctly.
+Once you know that your code works, include some runners that will cause InputMismatchExceptions so that you can make sure your error file is correct and that you are processing all the valid runners.
+Runner Class
+To write this program you will need a class for runners. Runner should should have the following fields:
+
+name (String)
+country (String)
+starting time (Time)
+ending time (Time)
+race time (Time)
+Runner should have the following methods:
+
+constructor with four parms: name, country, start time, and end time. It should also calculate the amount of time it took the Runner to complete the race.
+raceTime: returns a Time object and has no parms. It returns the amount of time taken by the Runner in the race.
+toString: print all fields of the Runner, nicely formatted and labeled. One possible format you could use would look like the following:
+        Allyson Felix (United States)
+        start: 09:25:31.2, end: 10:02:14.45
+        time: 00:36:43.25
+        
+compareTo: compare two Runner objects by comparing the race time. The Runner with the smaller race time is the one that's smaller. This method has one parm, the second Runner object, and it returns an int. Return -1 if the race time in this is less than the race time in the parm. Return 0 if the race times are equal, and return 1 if the race time in this is greater than the race time in the parm.
+Time Class
+The Time class will store times using a 24 hour clock: midnight is hour 00, 3am is hour 03, noon is hour 12, 3pm is hour 15, and 11pm is hour 23. When you store hours, minutes and seconds which are less than 10 they will not have a leading zero. When you print them they should have a leading zero. The fields of the Time class are:
+
+hour (int) holds the hour in 24 hour time
+minutes (int) holds the minute
+seconds (double) holds the second
+The Time class has the following methods:
+
+default constructor: initialize the Time to 0 (hours, minutes, and seconds are all 0), which is midnight
+initializing constructor: parms for the hour, minute, and second
+toString: format the Time as hh:mm:ss.sss, in 24 hour format; be sure to use two digits if the hour, minutes, or seconds is less than 10
+equals
+compareTo: return -1 if the time in this is before (or shorter than) the time in the parm; return 0 if they are the same; return 1 if the time in this is after (or longer than) the time in the parm.
+minus: parm is a Time; return a new Time object that is the amount of time between this and the parm, assuming that this is after (greater than) the parm. For example, if this is 18:23:45.5 and the parm is 16:30:24.75, then minus returns a Time object that contains 01:53:20.75
+Client/Driver/Demo Code
+Read the Runners from the input file and store them in the ArrayList.
+Print all of the Runners from the ArrayList.
+Find the gold, silver, and bronze medal winners and print them. DO NOT USE THE SORT METHOD OF THE ARRAYLIST.
+Assumptions:
+To keep things from getting too complicated, you can assume there are no ties for the medals.
+Since the race does not take place in the middle of the night, you can assume that the ending time will be later than the starting time – the race starts and finishes in the same day, so you don’t have to handle the case where the end time is earlier because the runner doesn’t finish the race till after midnight.
+To Submit Your Lab, Put All Your .java Files into a .zip File and Submit Your .zip File
