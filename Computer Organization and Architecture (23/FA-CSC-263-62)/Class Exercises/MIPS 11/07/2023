@@ -1,0 +1,44 @@
+# Add Some Integers
+#
+# read num1 and num2 from keyboard
+# print (on screen) the sum of the numbers read
+#
+# t0: sum
+# t1: num1
+# t2: num2
+#
+.data
+prompt: .asciiz "\n Enter a number: "
+result: .asciiz "The sum of your numbers is "
+.globl  main
+.text
+main:
+# initialize sum to 0
+move $t0, $0               # sum = 0
+# read and add first num
+move $t0, $0               # initialize sum to 0
+li $v0, 4
+la $a0, prompt
+syscall                       # syscall to print prompt
+li $v0, 5
+syscall                       # read num1
+move $t1, $v0              # copy num into $t1
+add  $t0, $t0, $t1         # add num1 to sum
+# read and add second num
+li $v0, 4
+la $a0, prompt
+syscall                       # print prompt
+li $v0, 5
+syscall                       # read num2
+move $t2, $v0              # copy num2 into $t2
+add  $t0, $t0, $t2         # add num2 to sum
+# print the sum
+li $v0, 4
+la $a0, result
+syscall                       # print result msg
+li $v0, 1
+move $a0,$t0               # copy sum into $a0
+syscall                       # print sum
+# exit from program
+li $v0, 10                   # terminate execution and
+syscall                       # return control to system
