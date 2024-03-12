@@ -17,7 +17,7 @@ int rows;                          // Here Concept 1 is used where we declare a 
 printf("Enter the number of rows: ");
 scanf("%d", &rows);                 // Here Concept 8 is used where we take input from the user
 
-for (int i = 1; i<=rows; i++){ 
+for (int i = 1; i<=rows; i++){  // Here Concept 6 is used where we have a local varible (i)
     int count = 0;
     for (int j = i; count <i; count++){
         printf("%d ", j);
