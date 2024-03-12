@@ -11,7 +11,7 @@ on the console screen.
 
 #include <stdio.h>
 
-char *name = "Adam Elshanawany";            // Here Concept 3 is used where we declare a global variable (char *)
+char *name = "Adam Elshanawany";            // Here Concept 3/6 is used where we declare a global variable (char *)
                                             //Concept 7 is also used where we understand how strings are managed
 void main(){
 
@@ -27,7 +27,7 @@ sum = num1 + num2;
 
 printf("Sum of %d and %d is: %d\n\n", num1, num2, sum);     // Concept 8 is continued here where we print the result
 
-for (int i = 0; i < sum; i++) {         // Here Concept 3 is also used where we have a local varible (i)
+for (int i = 0; i < sum; i++) {         // Here Concept 3/6 is also used where we have a local varible (i)
     printf("%s\n", name);               // Here Concept 2 is used where we print a string, as well as above where we print integers
     }
 }
